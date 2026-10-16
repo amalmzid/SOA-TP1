@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fichier volontairement invalide pour démontrer la validation XSD -->
+<universite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="universite.xsd">
+    <enseignants>
+        <enseignant id="E001">
+            <nom>Haddad</nom>
+            <prenom>Mohamed</prenom>
+            <departement>Informatique</departement>
+            <grade>Directeur</grade> <!-- ERREUR : grade hors énumération -->
+        </enseignant>
+    </enseignants>
+    <cours>
+        <cours-item id="C001" optionnel="false">
+            <titre>Programmation Java</titre>
+            <departement>Informatique</departement>
+            <credits>6</credits>
+            <semestre>1</semestre>
+            <enseignantRef>E999</enseignantRef> <!-- ERREUR : enseignant inexistant (IDREF) -->
+        </cours-item>
+    </cours>
+    <etudiants>
+        <etudiant id="S001" actif="peut-etre"> <!-- ERREUR : actif doit être boolean -->
+            <nom>Ben Salah</nom>
+            <prenom>Amal</prenom>
+            <email>pas-un-email</email> <!-- ERREUR : email invalide -->
+            <filiere>Génie Logiciel</filiere>
+            <dateInscription>2024-09-15</dateInscription>
+            <moyenne>25.0</moyenne> <!-- ERREUR : moyenne doit être entre 0 et 20 -->
+        </etudiant>
+    </etudiants>
+</universite>

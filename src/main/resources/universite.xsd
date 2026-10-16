@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <!-- ===== Types simples ===== -->
+    <xs:simpleType name="MoyenneType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="20"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CreditsType">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:maxInclusive value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="SemestreType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="6"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EmailType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[^@\s]+@[^@\s]+\.[^@\s]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="GradeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Assistant"/>
+            <xs:enumeration value="Maître de conférences"/>
+            <xs:enumeration value="Professeur"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EnseignantIdType">
+        <xs:restriction base="xs:ID">
+            <xs:pattern value="E\d{3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CoursIdType">
+        <xs:restriction base="xs:ID">
+            <xs:pattern value="C\d{3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EtudiantIdType">
+        <xs:restriction base="xs:ID">
+            <xs:pattern value="S\d{3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ===== Types complexes ===== -->
+    <xs:complexType name="EnseignantType">
+        <xs:sequence>
+            <xs:element name="nom" type="xs:string"/>
+            <xs:element name="prenom" type="xs:string"/>
+            <xs:element name="departement" type="xs:string"/>
+            <xs:element name="grade" type="GradeType"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="EnseignantIdType" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="CoursType">
+        <xs:sequence>
+            <xs:element name="titre" type="xs:string"/>
+            <xs:element name="departement" type="xs:string"/>
+            <xs:element name="credits" type="CreditsType"/>
+            <xs:element name="semestre" type="SemestreType"/>
+            <!-- Référence vers un enseignant existant (ID/IDREF) -->
+            <xs:element name="enseignantRef" type="xs:IDREF"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="CoursIdType" use="required"/>
+        <xs:attribute name="optionnel" type="xs:boolean" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="EtudiantType">
+        <xs:sequence>
+            <xs:element name="nom" type="xs:string"/>
+            <xs:element name="prenom" type="xs:string"/>
+            <xs:element name="email" type="EmailType"/>
+            <xs:element name="filiere" type="xs:string"/>
+            <xs:element name="dateInscription" type="xs:date"/>
+            <xs:element name="moyenne" type="MoyenneType"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="EtudiantIdType" use="required"/>
+        <xs:attribute name="actif" type="xs:boolean" use="required"/>
+    </xs:complexType>
+
+    <!-- ===== Élément racine ===== -->
+    <xs:element name="universite">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="enseignants">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="enseignant" type="EnseignantType" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="cours">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cours-item" type="CoursType" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="etudiants">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="etudiant" type="EtudiantType" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
