@@ -38,6 +38,8 @@ universite-xml/
 Données : 4 enseignants, 5 cours, 4 étudiants. Le lien cours → enseignant
 est réalisé par `enseignantRef` (mécanisme ID/IDREF).
 
+![Lien entre enseignant et cours (ID/IDREF)](image/tp1-soa-lien-entre-enseignant-et-cour-xml.png)
+
 ## Étape 2 — Création du schéma XSD
 
 Le fichier `universite.xsd` décrit la structure attendue du document, avec des contraintes :
@@ -50,11 +52,22 @@ Le fichier `universite.xsd` décrit la structure attendue du document, avec des 
 - identifiants au format `E001`, `C001`, `S001` (type `xs:ID`)
 - `enseignantRef` de type `xs:IDREF` : il doit pointer vers un enseignant existant
 
+![MoyenneType](image/tp1-soa-moyenneType-xsd.png)
+
+![GradeType](image/tp1-soa-GradeType-xsd.png)
+
+![EnseignantIdType](image/tp1-soa-enseignantIDtype-xsd.png)
+
+![CoursType avec enseignantRef de type xs:IDREF](image/tp1-soa-courType-xsd.png)
+
 ## Étape 3 — Création du projet Maven
 
 Projet Maven créé dans IntelliJ IDEA (`groupId` : `com.univ`, `artifactId` : `universite-xml`, Java 17).
  
 Dans le `pom.xml`, la validation XSD (`javax.xml.validation`) et XPath (`javax.xml.xpath`) font partie du JDK : **aucune dépendance externe n'est nécessaire** pour le programme. Seule dépendance ajoutée : **JUnit 5** (scope `test`) pour les tests unitaires.
+
+![Dépendances et plugins du pom.xml](image/tp1-soa-create-maven.png)
+
 ## Étape 4 — Validation XML/XSD
 
 Classe `XmlValidator` :
@@ -63,6 +76,8 @@ Classe `XmlValidator` :
 2. `factory.newSchema(...)` charge le fichier XSD.
 3. `schema.newValidator()` crée le `Validator`.
 4. `validator.validate(...)` valide le document XML.
+
+![Classe XmlValidator](image/tp1-soa-validation-xml-xsd.png)
 
 Un `ErrorHandler` collecte toutes les erreurs avec leur numéro de ligne. Le fichier `universite-invalide.xml` contient des erreurs volontaires (grade inconnu, booléen incorrect, email invalide, moyenne de 25, enseignant inexistant) pour démontrer le fonctionnement.
 
@@ -77,6 +92,10 @@ Résultat :
 
 Classe `XPathQueries` : le document est chargé en DOM, puis `XPathFactory.newInstance().newXPath()` compile chaque requête en `XPathExpression`.
 
+![Constructeur de XPathQueries](image/tp1-soa-xpathqueries-class.png)
+
+![Méthodes evaluer et evaluerNombre](image/tp1-soa-xpath-methode.png)
+
 | Objectif | Expression XPath |
 |---|---|
 | Titres des cours | `/universite/cours/cours-item/titre` |
@@ -89,9 +108,16 @@ Classe `XPathQueries` : le document est chargé en DOM, puis `XPathFactory.newIn
 | Moyenne générale | `sum(...) div count(...)` → 13.81 |
 | Total des crédits | `sum(//cours-item/credits)` → 21 |
 
+![Exemples d'expressions XPath](image/tp1-soa-expression-xpath.png)
+
 ## Étape 6 — Test et vérification
 
 Ouvrir le projet dans IntelliJ IDEA, laisser Maven importer, puis lancer `Main.java` à travers la commande `mvn compile exec:java` (ou `mvn test` pour les tests unitaires).
+
+```bash
+mvn compile exec:java   # validation + requêtes XPath
+mvn test                # tests unitaires JUnit
+```
 
 ## Exécution
 

@@ -33,25 +33,20 @@ public class XmlValidator {
 
         try (InputStream xsd = ouvrir(xsdResource);
              InputStream xml = ouvrir(xmlResource)) {
-
             // 2. Charger le schéma XSD
             Schema schema = factory.newSchema(new StreamSource(xsd));
-
             // 3. Créer le validateur à partir du schéma
             Validator validator = schema.newValidator();
-
             // 4. Collecter toutes les erreurs au lieu de s'arrêter à la première
             validator.setErrorHandler(new ErrorHandler() {
                 @Override
                 public void warning(SAXParseException e) {
                     erreurs.add("[AVERTISSEMENT] ligne " + e.getLineNumber() + " : " + e.getMessage());
                 }
-
                 @Override
                 public void error(SAXParseException e) {
                     erreurs.add("[ERREUR] ligne " + e.getLineNumber() + " : " + e.getMessage());
                 }
-
                 @Override
                 public void fatalError(SAXParseException e) throws SAXException {
                     erreurs.add("[FATAL] ligne " + e.getLineNumber() + " : " + e.getMessage());
