@@ -23,6 +23,27 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="JourType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="31"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="MoisType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="12"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="AnneeType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1900"/>
+            <xs:maxInclusive value="2100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:simpleType name="EmailType">
         <xs:restriction base="xs:string">
             <xs:pattern value="[^@\s]+@[^@\s]+\.[^@\s]+"/>
@@ -56,6 +77,14 @@
     </xs:simpleType>
 
     <!-- ===== Types complexes ===== -->
+    <xs:complexType name="DateType">
+        <xs:sequence>
+            <xs:element name="jour" type="JourType"/>
+            <xs:element name="mois" type="MoisType"/>
+            <xs:element name="annee" type="AnneeType"/>
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="EnseignantType">
         <xs:sequence>
             <xs:element name="nom" type="xs:string"/>
@@ -85,7 +114,7 @@
             <xs:element name="prenom" type="xs:string"/>
             <xs:element name="email" type="EmailType"/>
             <xs:element name="filiere" type="xs:string"/>
-            <xs:element name="dateInscription" type="xs:date"/>
+            <xs:element name="dateInscription" type="DateType"/>
             <xs:element name="moyenne" type="MoyenneType"/>
         </xs:sequence>
         <xs:attribute name="id" type="EtudiantIdType" use="required"/>

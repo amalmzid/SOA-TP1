@@ -25,7 +25,11 @@
             <prenom>Amal</prenom>
             <email>pas-un-email</email> <!-- ERREUR : email invalide -->
             <filiere>Génie Logiciel</filiere>
-            <dateInscription>2024-09-15</dateInscription>
+            <dateInscription>
+                <jour>15</jour>
+                <mois>9</mois>
+                <annee>2024</annee>
+            </dateInscription>
             <moyenne>25.0</moyenne> <!-- ERREUR : moyenne doit être entre 0 et 20 -->
         </etudiant>
     </etudiants>

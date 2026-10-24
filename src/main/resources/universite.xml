@@ -73,7 +73,11 @@
             <prenom>Amal</prenom>
             <email>amal.bensalah@univ.tn</email>
             <filiere>Génie Logiciel</filiere>
-            <dateInscription>2024-09-15</dateInscription>
+            <dateInscription>
+                <jour>15</jour>
+                <mois>9</mois>
+                <annee>2024</annee>
+            </dateInscription>
             <moyenne>15.50</moyenne>
         </etudiant>
         <etudiant id="S002" actif="false">
@@ -81,7 +85,11 @@
             <prenom>Karim</prenom>
             <email>karim.trabelsi@univ.tn</email>
             <filiere>Génie Logiciel</filiere>
-            <dateInscription>2022-09-12</dateInscription>
+            <dateInscription>
+                <jour>12</jour>
+                <mois>9</mois>
+                <annee>2022</annee>
+            </dateInscription>
             <moyenne>9.75</moyenne>
         </etudiant>
         <etudiant id="S003" actif="true">
@@ -89,7 +97,11 @@
             <prenom>Sana</prenom>
             <email>sana.gharbi@univ.tn</email>
             <filiere>Mathématiques Appliquées</filiere>
-            <dateInscription>2025-09-10</dateInscription>
+            <dateInscription>
+                <jour>10</jour>
+                <mois>9</mois>
+                <annee>2025</annee>
+            </dateInscription>
             <moyenne>13.20</moyenne>
         </etudiant>
         <etudiant id="S004" actif="true">
@@ -97,7 +109,11 @@
             <prenom>Youssef</prenom>
             <email>youssef.mansouri@univ.tn</email>
             <filiere>Gestion</filiere>
-            <dateInscription>2025-09-10</dateInscription>
+            <dateInscription>
+                <jour>10</jour>
+                <mois>9</mois>
+                <annee>2025</annee>
+            </dateInscription>
             <moyenne>16.80</moyenne>
         </etudiant>
     </etudiants>

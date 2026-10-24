@@ -33,7 +33,7 @@ universite-xml/
 |---|---|---|
 | `enseignant` | `id` | nom, prenom, departement, grade |
 | `cours-item` | `id`, `optionnel` | titre, departement, credits, semestre, enseignantRef |
-| `etudiant` | `id`, `actif` | nom, prenom, email, filiere, dateInscription, moyenne |
+| `etudiant` | `id`, `actif` | nom, prenom, email, filiere, dateInscription (jour, mois, annee), moyenne |
 
 Données : 4 enseignants, 5 cours, 4 étudiants. Le lien cours → enseignant
 est réalisé par `enseignantRef` (mécanisme ID/IDREF).
@@ -44,6 +44,7 @@ Le fichier `universite.xsd` décrit la structure attendue du document, avec des 
  
 - moyenne comprise entre 0 et 20
 - semestre compris entre 1 et 6
+- `dateInscription` de type complexe `DateType` : jour (1–31), mois (1–12), annee (1900–2100)
 - email respectant un motif (`xxx@xxx.xx`)
 - grade limité à une liste : `Assistant`, `Maître de conférences`, `Professeur`
 - identifiants au format `E001`, `C001`, `S001` (type `xs:ID`)
